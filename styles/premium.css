@@ -1,0 +1,138 @@
+/* =========================================================
+   PREMIUM ANIMATIONS & EFFECTS CSS
+   Custom Cursor, Transitions, SplitText overrides
+   ========================================================= */
+
+/* --- Hide native cursor for premium feel --- */
+body {
+  cursor: none !important;
+}
+a, button, input, textarea, select, .btn-primary, .btn-secondary, .btn-cta {
+  cursor: none !important;
+}
+
+/* --- Magnetic Custom Cursor --- */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background-color: var(--brand-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease;
+  mix-blend-mode: difference; /* Spotlight effect */
+}
+
+#custom-cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+}
+
+/* Cursor states */
+body.cursor-hover #custom-cursor {
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff;
+}
+body.cursor-hover #custom-cursor-follower {
+  opacity: 0;
+  width: 80px;
+  height: 80px;
+}
+
+/* --- Page Transition Overlay --- */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--brand-darkest);
+  z-index: 10000;
+  pointer-events: none;
+  transform-origin: bottom;
+  /* Will be animated by GSAP */
+}
+
+/* --- WebGL Fluid Background Container --- */
+#webgl-fluid-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Override existing static backgrounds to allow WebGL to show through */
+.bg-gradient-mesh, .bg-gradient-radial, .bg-grid {
+  background: transparent !important;
+}
+body {
+  background: transparent !important;
+}
+
+/* --- GSAP Text Reveal Prep --- */
+/* Hide text initially if it has the gsap-reveal class to prevent FOUC */
+.gsap-reveal {
+  opacity: 0;
+  visibility: hidden;
+}
+.gsap-reveal.ready {
+  opacity: 1;
+  visibility: visible;
+}
+
+.char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%) rotateX(-90deg);
+  transform-origin: bottom;
+}
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+/* --- FULL PAGE SNAP SCROLLING --- */
+.snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* Hide scrollbar for cleaner look */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.snap-container::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-section {
+  min-height: 100vh;
+  height: auto;
+  width: 100vw;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 100px 0;
+}
+

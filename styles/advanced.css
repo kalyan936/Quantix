@@ -1,0 +1,342 @@
+/* =========================================================
+   ADVANCED UI COMPONENTS
+   Flip Cards, 3D Tilt, Accordions, Marquees, Isometric 3D
+   ========================================================= */
+
+/* --- 1. Flip Cards --- */
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+  height: 240px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+}
+
+.flip-card-front {
+  color: var(--brand-white);
+}
+
+.flip-card-back {
+  background: rgba(0, 102, 255, 0.1);
+  border-color: rgba(0, 170, 255, 0.3);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+/* --- 2. 3D Tilt Cards --- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  will-change: transform;
+}
+.tilt-card-inner {
+  transform: translateZ(30px); /* Pops the content out */
+}
+
+/* --- 3. Accordion / Expandable Drawers --- */
+.accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accordion-item {
+  background: rgba(13, 21, 38, 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.accordion-header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  color: var(--brand-white);
+  transition: var(--transition-base);
+}
+
+.accordion-header:hover {
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--brand-cyan);
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+  color: var(--brand-secondary);
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-item.active {
+  border-color: rgba(0, 170, 255, 0.3);
+  background: rgba(13, 21, 38, 0.8);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  padding: 0 24px;
+}
+
+.accordion-item.active .accordion-content {
+  padding: 0 24px 24px;
+}
+
+/* --- 4. Infinite Marquee --- */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  background: rgba(0, 102, 255, 0.05);
+  padding: 20px 0;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 40px;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--brand-cyan);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marquee-item span.up { color: #00ff88; }
+.marquee-item span.down { color: #ff3366; }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* --- 5. Isometric 3D Visuals --- */
+.isometric-container {
+  perspective: 1200px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.isometric-cube {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-45deg);
+  transition: transform 0.5s ease;
+}
+
+.isometric-container:hover .isometric-cube {
+  transform: rotateX(60deg) rotateZ(-45deg) translateZ(20px);
+}
+
+.cube-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 170, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.cube-top {
+  background: rgba(0, 102, 255, 0.4);
+  transform: translateZ(60px);
+  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.cube-front {
+  background: rgba(0, 102, 255, 0.2);
+  transform: rotateX(-90deg) translateZ(60px);
+  height: 80px;
+  top: 100%;
+  transform-origin: top;
+}
+
+.cube-right {
+  background: rgba(0, 102, 255, 0.1);
+  transform: rotateY(90deg) translateZ(60px);
+  width: 80px;
+  left: 100%;
+  transform-origin: left;
+}
+
+/* --- 6. Bento Grid (Careers) --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 20px;
+}
+
+.bento-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.bento-item:hover {
+  border-color: rgba(0, 170, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+.bento-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(6,10,20,0.9) 0%, transparent 100%);
+  z-index: 1;
+}
+
+.bento-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.5;
+  transition: var(--transition-smooth);
+}
+
+.bento-item:hover img {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.bento-content {
+  position: relative;
+  z-index: 2;
+}
+
+.bento-wide { grid-column: span 2; }
+.bento-tall { grid-row: span 2; }
+
+/* --- 7. GSAP Horizontal Scroll Container --- */
+.horizontal-scroll-wrapper {
+  overflow: hidden;
+}
+
+.horizontal-scroll-container {
+  display: flex;
+  width: 300vw; /* Adjust based on panels */
+  height: 100vh;
+}
+
+.horizontal-panel {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- 8. Sticky Sidebar Layout (Industries) --- */
+.sticky-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+.sticky-visual {
+  position: sticky;
+  top: 150px;
+  width: 45%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrolling-content {
+  width: 55%;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+  .sticky-layout {
+    flex-direction: column;
+  }
+  .sticky-visual {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 400px;
+  }
+  .scrolling-content {
+    width: 100%;
+  }
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  .bento-tall {
+    grid-row: span 1;
+  }
+}
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-wide {
+    grid-column: span 1;
+  }
+}
